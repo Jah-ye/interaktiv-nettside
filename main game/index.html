@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker</title>
+    <link rel="stylesheet" href="/main game/style-index.css">
+    <style>
+        
+
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffcc70;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #ff6b6b;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById("loadingScreen").style.display = "none";
+        }, 2000);
+    </script>
+</head>
+
+<body>
+
+<div id="loadingScreen">
+    <div class="loader"></div>
+</div>
+
+<div class="container">
+    <h1>Cookie Clicker</h1>
+    <img id="cookie" src="/images/cookie.png" alt="Cookie">
+    <p id="score">Cookies collected: 0</p>
+
+    <!-- Upgrade Buttons -->
+    <button class="button auto" onclick="buyAutoClicker()">Hent Cookie Monster (Koster <span id="autoClickerCost">10</span>)</button>
+    <p id="autoClickerAmount" class="upgrade-info">Total owned: 0</p>
+
+    <button class="button double" onclick="buyDoubleClick()">Hent melken (Koster <span id="doubleClickCost">20</span>)</button>
+    <p id="doubleClickAmount" class="upgrade-info">Total owned: 0</p>
+
+    <button class="button super" onclick="buySuperAutoClicker()">Hent faren til Cookie Monster (Koster <span id="superClickerCost">50</span>)</button>
+    <p id="superClickerAmount" class="upgrade-info">Total owned: 0</p>
+</div>
+
+<!-- Sound Effects -->
+<audio id="buy-sound" src="/sound/kaching.mov"></audio>
+<audio id="power-up-sound" src="/sound/power up.mp4"></audio>
+
+<script>
+    let score = 0;
+    let clickValue = 1;
+    let autoClickers = 0;
+    let superAutoClickers = 0;
+
+    let AutoClickerAmount = 0;
+    let doubleClickAmount = 0;
+    let superClickerAmount = 0;
+
+    let autoClickerCost = 10;
+    let doubleClickCost = 20;
+    let superClickerCost = 50;
+
+    document.getElementById("cookie").addEventListener("click", function () {
+        score += clickValue;
+        updateScore();
+    });
+
+    function updateScore() {
+        document.getElementById("score").innerText = "Cookies collected: " + score;
+    }
+
+    function updateUpgradeCounts() {
+        document.getElementById("autoClickerAmount").innerText = "Total owned: " + AutoClickerAmount;
+        document.getElementById("doubleClickAmount").innerText = "Total owned: " + doubleClickAmount;
+        document.getElementById("superClickerAmount").innerText = "Total owned: " + superClickerAmount;
+    }
+
+    function playSound(soundId) {
+        const sound = document.getElementById(soundId);
+        sound.currentTime = 0;
+        sound.play();
+    }
+
+    function buyAutoClicker() {
+        if (score >= autoClickerCost) {
+            AutoClickerAmount++;
+            score -= autoClickerCost;
+            autoClickers++;
+            autoClickerCost = Math.floor(autoClickerCost * 1.2);
+            document.getElementById("autoClickerCost").innerText = autoClickerCost;
+            updateScore();
+            updateUpgradeCounts();
+            playSound("buy-sound");
+
+            if (autoClickers === 1) {
+                setInterval(() => {
+                    score += autoClickers;
+                    updateScore();
+                }, 1000);
+            }
+        }
+    }
+
+    function buyDoubleClick() {
+        if (score >= doubleClickCost) {
+            doubleClickAmount++;
+            score -= doubleClickCost;
+            clickValue *= 2;
+            doubleClickCost = Math.floor(doubleClickCost * 1.3);
+            document.getElementById("doubleClickCost").innerText = doubleClickCost;
+            updateScore();
+            updateUpgradeCounts();
+            playSound("power-up-sound");
+        }
+    }
+
+    function buySuperAutoClicker() {
+        if (score >= superClickerCost) {
+            superClickerAmount++;
+            score -= superClickerCost;
+            superAutoClickers++;
+            superClickerCost = Math.floor(superClickerCost * 1.5);
+            document.getElementById("superClickerCost").innerText = superClickerCost;
+            updateScore();
+            updateUpgradeCounts();
+
+            if (superAutoClickers === 1) {
+                setInterval(() => {
+                    score += superAutoClickers * 5;
+                    updateScore();
+                }, 1000);
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
