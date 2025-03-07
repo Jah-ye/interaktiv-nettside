@@ -2,15 +2,59 @@ body {
     background: linear-gradient(to right, #ffe5b4, #ffcccb);
     font-family: Arial, sans-serif;
     text-align: center;
-    color: #333;
+    color: black;
     margin: 0;
     padding: 0;
+}
+#loadingScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffcc70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.corner-button {
+    position: fixed;
+    top: 20px; 
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #ff6b6b;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.25s ease;
+}
+
+.corner-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #ff6b6b;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .container {
     max-width: 500px;
     margin: 50px auto;
-    background: #fff;
+    background: white;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -76,11 +120,6 @@ h1 {
     background-color: #ff7f50;
 }
 
-.upgrade-info {
-    color: #666;
-    margin-bottom: 15px;
-}
-
 img {
     width: 200px; /* Set initial size */
     transition: transform 0.3s ease-in-out; /* Smooth animation */
@@ -90,13 +129,3 @@ img:hover {
     transform: scale(1.2); /* Increase size by 20% */
 }
 
-.fontSize {
-    font-size: 25px;
-}
-
-button:hover {
-    background-color: darkgreen;
-    transition: background-color
-    0.3s ease;
-    transform: scale(1.05);
-}

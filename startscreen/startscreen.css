@@ -9,8 +9,6 @@ body {
     align-items: center;
     height: 100vh;
 
-    background-image: url(''); /* Bakgrunnsbilde */
-    background-size: cover;
   }
   
   /* Start screen */
@@ -22,7 +20,7 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   }
   
-  /* Tittel section */
+  /* Title */
   .title-container {
     margin-bottom: 30px;
   }
@@ -61,7 +59,6 @@ body {
     background-color: #2ecc71;
   }
   
-  /* Credits */
   .credits {
     margin-top: 20px;
     font-size: 1.2em;
